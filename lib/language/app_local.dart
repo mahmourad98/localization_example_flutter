@@ -9,12 +9,20 @@ class MyAppLocal{
 
   static const LocalizationsDelegate<MyAppLocal> delegate = _MyAppLocalDelegate();
 
-  MyAppLocal(this.theLocal){
-    //loadLocalizationFile();
+  MyAppLocal._(this.theLocal);
+
+  static Future<MyAppLocal> init(Locale locale) async{
+    final MyAppLocal _instance = MyAppLocal._(locale);
+    await _instance.loadLocalizationFile();
+    return _instance;
   }
 
   static MyAppLocal of(BuildContext buildContext){
-    return Localizations.of(buildContext, MyAppLocal);
+    return Localizations.of<MyAppLocal>(buildContext, MyAppLocal) ?? Localizations.of(buildContext, MyAppLocal);
+  }
+
+  String getKeyTranslated(String key,){
+    return localizedTitles[key] ?? '';
   }
 
   Future<void> loadLocalizationFile() async{
@@ -22,10 +30,6 @@ class MyAppLocal{
     Map<String, dynamic> fileDataDecoded = jsonDecode(fileData,);
     Map<String, String> fileDataAsMap = fileDataDecoded.map((key, value,) => MapEntry(key.toString(), value.toString(),),);
     this.localizedTitles = fileDataAsMap;
-  }
-
-  String getKeyTranslated(String key,){
-    return localizedTitles[key] ?? '';
   }
 }
 
@@ -44,8 +48,7 @@ class _MyAppLocalDelegate extends LocalizationsDelegate<MyAppLocal>{
 
   @override
   Future<MyAppLocal> load(Locale locale) async{
-    final MyAppLocal _myAppLocal = MyAppLocal(locale);
-    await _myAppLocal.loadLocalizationFile();
+    final MyAppLocal _myAppLocal = await MyAppLocal.init(locale);
     return _myAppLocal;
   }
 

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:untitled03/language/app_local.dart';
+import 'package:untitled03/language/language_change_notifier.dart';
 import 'home_page.dart';
 
 class MyApp extends StatefulWidget {
-  static Locale local = const Locale('tr', '');
-  const MyApp({Key? key}) : super(key: key);
+  final LanguageChangeNotifier lang = LanguageChangeNotifier();
+
+  MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -18,10 +20,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: const SafeArea(
-        child: MyHomePage(),
+      home: SafeArea(
+        child: MyHomePage(lang: widget.lang,),
       ),
-      locale: MyApp.local,
+      locale: widget.lang.getLanguage(),
       supportedLocales: const <Locale>[
         Locale('en', ''),
         Locale('ar', ''),
