@@ -37,7 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: any
   material_design_icons_flutter: any
-  material_tag_editor: ^0.1.1
+  shared_preferences: ^2.0.11
 
 dev_dependencies:
   flutter_test:

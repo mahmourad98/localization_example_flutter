@@ -11,8 +11,7 @@ class AppLanguage extends InheritedWidget {
 
   @override
   bool updateShouldNotify(AppLanguage oldWidget,) {
-    // return this.languageLocal.languageCode != oldWidget.languageLocal.languageCode
-    //   || this.languageLocal.countryCode != oldWidget.languageLocal.countryCode;
-    return true;
+    return this.languageLocal.languageCode != oldWidget.languageLocal.languageCode
+      || this.languageLocal.countryCode != oldWidget.languageLocal.countryCode;
   }
 }
