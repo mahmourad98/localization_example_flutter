@@ -5,15 +5,15 @@ import 'package:flutter/services.dart';
 
 class MyAppLocal{
   final Locale theLocal;
-  late final Map<String, String> localizedTitles;
-
-  static const LocalizationsDelegate<MyAppLocal> delegate = _MyAppLocalDelegate();
+  late final Map<String, String> _localizedTitles;
 
   MyAppLocal._(this.theLocal);
 
+  static const LocalizationsDelegate<MyAppLocal> delegate = _MyAppLocalDelegate();
+
   static Future<MyAppLocal> init(Locale locale) async{
     final MyAppLocal _instance = MyAppLocal._(locale);
-    await _instance.loadLocalizationFile();
+    await _instance._loadLocalizationFile();
     return _instance;
   }
 
@@ -22,14 +22,15 @@ class MyAppLocal{
   }
 
   String getKeyTranslated(String key,){
-    return localizedTitles[key] ?? '';
+    return _localizedTitles[key] ?? '';
   }
 
-  Future<void> loadLocalizationFile() async{
+  Future<void> _loadLocalizationFile() async{
     String fileData = await rootBundle.loadString('assets/lang/${theLocal.languageCode}.json',);
     Map<String, dynamic> fileDataDecoded = jsonDecode(fileData,);
     Map<String, String> fileDataAsMap = fileDataDecoded.map((key, value,) => MapEntry(key.toString(), value.toString(),),);
-    this.localizedTitles = fileDataAsMap;
+    this._localizedTitles = fileDataAsMap;
+    return;
   }
 }
 

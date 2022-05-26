@@ -6,9 +6,7 @@ import 'package:untitled03/language/app_local.dart';
 import 'language/language_change_notifier.dart';
 
 class MyHomePage extends StatefulWidget {
-  final LanguageChangeNotifier lang;
-
-  const MyHomePage({Key? key, required this.lang}) : super(key: key);
+  const MyHomePage({Key? key,}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -39,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: (){
                 setState(() {
-                  widget.lang.setLanguage(const Locale('en', '',),);
+                  MyApp.setLocale(context, const Locale('en', '',),);
                 });
               },
               child: const Text('EN',),
@@ -47,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: (){
                 setState(() {
-                  widget.lang.setLanguage(const Locale('ar', '',),);
+                  MyApp.setLocale(context, const Locale('ar', '',),);
                 });
               },
               child: const Text('AR',),
@@ -55,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: (){
                 setState(() {
-                  widget.lang.setLanguage(const Locale('tr', '',),);
+                  MyApp.setLocale(context, const Locale('tr', '',),);
                 });
               },
               child: const Text('TR',),

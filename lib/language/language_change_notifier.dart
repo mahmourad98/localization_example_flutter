@@ -1,15 +1,18 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class LanguageChangeNotifier extends ChangeNotifier{
-  static Locale _languageLocal = const Locale('en', '');
+class AppLanguage extends InheritedWidget {
+  Locale languageLocal = const Locale('en', '');
 
-  void setLanguage(Locale locale){
-    _languageLocal = locale;
-    notifyListeners();
+  AppLanguage({Key? key, required Widget child,}) : super(key: key, child: child,);
+
+  static AppLanguage? of(BuildContext context,) {
+    return context.dependOnInheritedWidgetOfExactType<AppLanguage>();
   }
 
-  Locale getLanguage(){
-    notifyListeners();
-    return _languageLocal;
+  @override
+  bool updateShouldNotify(AppLanguage oldWidget,) {
+    // return this.languageLocal.languageCode != oldWidget.languageLocal.languageCode
+    //   || this.languageLocal.countryCode != oldWidget.languageLocal.countryCode;
+    return true;
   }
 }
